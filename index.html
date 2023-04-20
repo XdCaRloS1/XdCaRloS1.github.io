@@ -1,644 +1,247 @@
-<!doctype html>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tic Tac Toe</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+		}
 
+		h1 {
+			text-align: center;
+		}
 
-<html class="no-js" lang="en">
+		#board {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			align-items: center;
+			width: 620px;
+			height: 620px;
+			margin: 0 auto;
+			border: 8px solid #000;
+			border-radius: 8px;
+			overflow: hidden;
+		}
 
+		.cell {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 200px;
+			height: 200px;
+			font-size: 100px;
+			cursor: pointer;
+			box-sizing: border-box;
+			background-color: #fff;
+			border: 2px solid #000;
+			box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+			transition: background-color 0.2s ease-in-out;
+		}
 
-    <head>
-        <title>Title of the document</title>
-        <link rel="shortcut icon" href="/favicon.ico">
-      </head>
-      <body>
-        <h1 style="color: #c91c1c;"> 
-   
-        </h1>
+		.cell:hover {
+			background-color: #f9f9f9;
+		}
 
-   
+		.cell.clicked {
+			background-color: #ddd;
+			cursor: not-allowed;
+		}
 
+		.endgame {
+			display: none;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			background-color: rgba(255, 255, 255, 0.9);
+			padding: 20px;
+			border-radius: 10px;
+			box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+		}
 
+		.endgame .text {
+			font-size: 32px;
+			font-weight: bold;
+			text-align: center;
+			margin-bottom: 20px;
+		}
+
+		.restart-btn {
+			background-color: #4CAF50;
+			color: white;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			font-size: 16px;
+			cursor: pointer;
+			float: right;
+		}
+	</style>
 </head>
-
-<style>
-      h2{
-    text-align: left ;
-  font-size: 28px;
-}
-   p {
-    text-align: left ;
-  font-size: 26px;
-}
-span
-{
-    font-size: 19px; 
-}
- 
-
-</style>
-<script>
-    (function(w, d, s, l, i) {
-        w[l] = w[l] || [];
-        w[l].push({
-            'gtm.start': new Date().getTime(),
-            event: 'gtm.js'
-        });
-        var f = d.getElementsByTagName(s)[0],
-            j = d.createElement(s),
-            dl = l != 'dataLayer' ? '&l=' + l : '';
-        j.async = true;
-        j.src =
-            'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-        f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-K6PR9G');
-</script>
-<!-- End Google Tag Manager -->
-
-
-<script type="text/javascript" src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-<script type="text/javascript" src="https://www.mide.com/hubfs/js/simpleharmonic23.js"></script>
-
-<br>
-<div class="stirling-form"><form id="input">
-    <table style="width: 100%; height: auto;">
-    <tbody>
-    <tr>
-    <td style="width: 30%;"><label>Xo(deplasarea)</label></td>
-    <td style="width: 10%;"><input id="mm" type="number" value="0.248" style="text-align: right;" onchange="Converter(this.id,this.value)" oninput="Converter(this.id,this.value)"></td>
-    <td style="width: 10%;"><label>mm</label></td>
-    <td style="width: 30%;"><input id="inch" type="number" value="0.0098" style="text-align: right;" onchange="Converter(this.id,this.value)" oninput="Converter(this.id,this.value)"></td>
-    <td style="width: 10%;"><label>inch</label></td>
-    </tr>
-    <tr>
-    <td style="width: 30%;"><label>Viteza</label></td>
-    <td style="width: 10%;"><input id="mms" type="number" value="156.08" style="text-align: right;" onchange="Converter(this.id,this.value)" oninput="Converter(this.id,this.value)"></td>
-    <td style="width: 10%;"><label>mm/s</label></td>
-    <td style="width: 30%;"><input id="ips" type="number" value="6.145" style="text-align: right;" onchange="Converter(this.id,this.value)" oninput="Converter(this.id,this.value)"></td>
-    <td style="width: 10%;"><label>inch/s</label></td>
-    </tr>
-    <tr>
-    <td style="width: 30%;"><label>Acceleratie:</label></td>
-    <td style="width: 10%;"><input id="a" type="number" value="10.00" style="text-align: right;" onchange="Converter(this.id,this.value)" oninput="Converter(this.id,this.value)"></td>
-    <td style="width: 10%;"><label>g</label></td>
-    </tr>
-    <tr>
-    <td style="width: 30%;"><label>Frecventa:</label></td>
-    <td style="width: 10%;"><input id="f" type="number" value="100.00" style="text-align: right;" onchange="Converter(this.id,this.value)" oninput="Converter(this.id,this.value)"></td>
-    <td style="width: 10%;"><label>Hz</label></td>
-    </tr>
-    
-    
-</tr>
-    </tbody>
-    </table>
-    </form></div>
-
-</tbody>
-</table>
-</form></div>
-
-<br>
-<br>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<body class=''>
-
-  <div class='layout-outer'>
-      <div class='layout-fixed layout-padding'>
-          <article class='Content'>
-
-              <!--  To embed this simulator into your web page copy this source code until "Harmonic Oscillator Simulator END" comment. -->
-
-              <!--
-
-Harmonic Oscillator Simulator
-
-https://evgenii.com
-
-License: Public Domain
-
--->
-
-              <!-- Styles for Harmonic Oscillator -->
-              <style>
-                  .HarmonicOscillator-alert {
-                      color: red;
-                      border: 1px solid red;
-                      background: #ffeeee;
-                      padding: 5px;
-                  }
-
-                  .HarmonicOscillator-input {
-                      font-family: inherit;
-                      font-size: 100%;
-                      margin: 0;
-                      padding: 10px 7px 7px 7px;
-                  }
-
-                  .HarmonicOscillator-inputSmall {
-                      width: 5em;
-                  }
-
-                  .HarmonicOscillator-isTextCentered {
-                      text-align: center;
-                  }
-              </style>
-
-              <!-- Message shown in old browsers. -->
-              <p id="HarmonicOscillator-notSupportedMessage" class="HarmonicOscillator-alert">eroare de browser</p>
-
-              <div class="HarmonicOscillator">
-                  <canvas class="HarmonicOscillator-canvas"></canvas>
-
-                  <p class="HarmonicOscillator-isTextCentered">Masa<br />
-                      <input class="HarmonicOscillator-input HarmonicOscillator-inputSmall HarmonicOscillator-isTextCentered" type="number" id="HarmonicOscillator-mass" min="1" max="10000" step="1" pattern="\d*" />
-                  </p>
-
-                  <p class="HarmonicOscillator-isTextCentered">constanta elastica<br />
-                      <input class="HarmonicOscillator-input HarmonicOscillator-inputSmall HarmonicOscillator-isTextCentered" type="number" id="HarmonicOscillator-springConstant" name="springConstant" min="1" max="10000" step="1" pattern="\d*" />
-                  </p>
-              </div>
-
-              <script>
-                  (function() {
-                      // Calculate position and velocity of the box
-                      var physics = (function() {
-                          // Initial condition for the system
-                          var initialConditions = {
-                              position: 1.0, // Box is shown on the right initially
-                              velocity: 0.0, // Velocity is zero
-                              springConstant: 100.0, // The higher the value the stiffer the spring
-                              mass: 10.0 // The mass of the box
-                          };
-
-                          // Current state of the system
-                          var state = {
-                              /*
-                              Position of the box:
-                                0 is when the box is at the center.
-                                1.0 is the maximum position to the right.
-                                -1.0 is the maximum position to the left.
-                              */
-                              position: 0,
-                              velocity: 0,
-                              springConstant: 0, // The higher the value the stiffer the spring
-                              mass: 0 // The mass of the box
-                          };
-
-                          var deltaT = 0.016; // The length of the time increment, in seconds.
-
-                          function resetStateToInitialConditions() {
-                              state.position = initialConditions.position;
-                              state.velocity = initialConditions.velocity;
-                              state.springConstant = initialConditions.springConstant;
-                              state.mass = initialConditions.mass;
-                          }
-
-                          // Returns acceleration (change of velocity) for the given position
-                          function calculateAcceleration(x) {
-                              // We are using the equation of motion for the harmonic oscillator:
-                              // a = -(k/m) * x
-                              // Where a is acceleration, x is displacement, k is spring constant and m is mass.
-
-                              return -(state.springConstant / state.mass) * x;
-                          }
-
-                          // Calculates the new velocity: current velocity plus the change.
-                          function newVelocity(acceleration) {
-                              return state.velocity + deltaT * acceleration;
-                          }
-
-                          // Calculates the new position: current position plus the change.
-                          function newPosition() {
-                              return state.position + deltaT * state.velocity;
-                          }
-
-                          // The main function that is called on every animation frame.
-                          // It calculates and updates the current position of the box.
-                          function updatePosition() {
-                              var acceleration = calculateAcceleration(state.position);
-                              state.velocity = newVelocity(acceleration);
-                              state.position = newPosition();
-                              if (state.position > 1) {
-                                  state.position = 1;
-                              }
-                              if (state.position < -1) {
-                                  state.position = -1;
-                              }
-                          }
-
-                          return {
-                              resetStateToInitialConditions: resetStateToInitialConditions,
-                              updatePosition: updatePosition,
-                              initialConditions: initialConditions,
-                              state: state,
-                          };
-                      })();
-
-                      // Draw the scene
-                      var graphics = (function() {
-                          var canvas = null, // Canvas DOM element.
-                              context = null, // Canvas context for drawing.
-                              canvasHeight = 100,
-                              boxSize = 50,
-                              springInfo = {
-                                  height: 30, // Height of the spring
-                                  numberOfSegments: 12 // Number of segments in the spring.
-                              },
-                              colors = {
-                                  shade30: "#a66000",
-                                  shade40: "#ff6c00",
-                                  shade50: "#ffb100"
-                              };
-
-                          // Return the middle X position of the box
-                          function boxMiddleX(position) {
-                              var boxSpaceWidth = canvas.width - boxSize;
-                              return boxSpaceWidth * (position + 1) / 2 + boxSize / 2;
-                          }
-
-                          // Draw spring from the box to the center. Position argument is the box position and varies from -1 to 1.
-                          // Value 0 corresponds to the central position, while -1 and 1 are the left and right respectively.
-                          function drawSpring(position) {
-                              var springEndX = boxMiddleX(position),
-                                  springTopY = (canvasHeight - springInfo.height) / 2,
-                                  springEndY = canvasHeight / 2,
-                                  canvasMiddleX = canvas.width / 2,
-                                  singleSegmentWidth = (canvasMiddleX - springEndX) / (springInfo.numberOfSegments - 1),
-                                  springGoesUp = true;
-
-                              context.beginPath();
-                              context.lineWidth = 1;
-                              context.strokeStyle = colors.shade40;
-                              context.moveTo(springEndX, springEndY);
-
-                              for (var i = 0; i < springInfo.numberOfSegments; i++) {
-                                  var currentSegmentWidth = singleSegmentWidth;
-                                  if (i === 0 || i === springInfo.numberOfSegments - 1) {
-                                      currentSegmentWidth /= 2;
-                                  }
-
-                                  springEndX += currentSegmentWidth;
-                                  springEndY = springTopY;
-                                  if (!springGoesUp) {
-                                      springEndY += springInfo.height;
-                                  }
-                                  if (i === springInfo.numberOfSegments - 1) {
-                                      springEndY = canvasHeight / 2;
-                                  }
-
-                                  context.lineTo(springEndX, springEndY);
-                                  springGoesUp = !springGoesUp;
-                              }
-
-                              context.stroke();
-                          }
-
-                          // Draw a box at position. Position is a value from -1 to 1.
-                          // Value 0 corresponds to the central position, while -1 and 1 are the left and right respectively.
-                          function drawBox(position) {
-                              var boxTopY = Math.floor((canvasHeight - boxSize) / 2);
-                              var startX = boxMiddleX(position) - boxSize / 2;
-
-                              // Rectangle
-                              context.beginPath();
-                              context.fillStyle = colors.shade50;
-                              context.fillRect(startX, boxTopY, boxSize, boxSize);
-
-                              // Border around rectangle
-                              context.beginPath();
-                              context.lineWidth = 1;
-                              context.strokeStyle = colors.shade30;
-                              context.strokeRect(startX + 0.5, boxTopY + 0.5, boxSize - 1, boxSize - 1);
-                          }
-
-                          // Draw vertical line in the middle
-                          function drawMiddleLine() {
-                              var middleX = Math.floor(canvas.width / 2);
-
-                              context.beginPath();
-                              context.moveTo(middleX, 0);
-                              context.lineTo(middleX, canvas.height);
-                              context.lineWidth = 2;
-                              context.strokeStyle = colors.shade40;
-                              context.setLineDash([2, 3]);
-                              context.stroke();
-                              context.setLineDash([1, 0]);
-                          }
-
-                          // Clears everything and draws the whole scene: the line, spring and the box.
-                          function drawScene(position) {
-                              context.clearRect(0, 0, canvas.width, canvas.height);
-                              drawMiddleLine();
-                              drawSpring(position);
-                              drawBox(position);
-                          }
-
-                          function hideCanvasNotSupportedMessage() {
-                              document.getElementById("HarmonicOscillator-notSupportedMessage").style.display = 'none';
-                          }
-
-                          // Resize canvas to will the width of container
-                          function fitToContainer() {
-                              canvas.style.width = '100%';
-                              canvas.style.height = canvasHeight + 'px';
-                              canvas.width = canvas.offsetWidth;
-                              canvas.height = canvas.offsetHeight;
-                          }
-
-                          // Create canvas for drawing and call success argument
-                          function init(success) {
-                              // Find the canvas HTML element
-                              canvas = document.querySelector(".HarmonicOscillator-canvas");
-
-                              // Check if the browser supports canvas drawing
-                              if (!(window.requestAnimationFrame && canvas && canvas.getContext)) {
-                                  return;
-                              }
-
-                              // Get canvas context for drawing
-                              context = canvas.getContext("2d");
-                              if (!context) {
-                                  return;
-                              } // Error, browser does not support canvas
-
-                              // If we got to this point it means the browser can draw
-                              // Hide the old browser message
-                              hideCanvasNotSupportedMessage();
-
-                              // Update the size of the canvas
-                              fitToContainer();
-
-                              // Execute success callback function
-                              success();
-                          }
-
-                          return {
-                              fitToContainer: fitToContainer,
-                              drawScene: drawScene,
-                              init: init
-                          };
-                      })();
-
-                      // Start the simulation
-                      var simulation = (function() {
-                          // The method is called 60 times per second
-                          function animate() {
-                              physics.updatePosition();
-                              graphics.drawScene(physics.state.position);
-                              window.requestAnimationFrame(animate);
-                          }
-
-                          function start() {
-                              graphics.init(function() {
-                                  // Use the initial conditions for the simulation
-                                  physics.resetStateToInitialConditions();
-
-                                  // Redraw the scene if page is resized
-                                  window.addEventListener('resize', function(event) {
-                                      graphics.fitToContainer();
-                                      graphics.drawScene(physics.state.position);
-                                  });
-
-                                  // Start the animation sequence
-                                  animate();
-                              });
-                          }
-
-                          return {
-                              start: start
-                          };
-                      })();
-
-                      simulation.start();
-
-                      // Get input for the mass and the spring constant from the user
-                      var userInput = (function() {
-                          // Update mass and spring constant with selected values
-                          function updateSimulation(massInput, springConstantInput) {
-                              physics.resetStateToInitialConditions();
-                              physics.state.mass = parseFloat(massInput.value) || physics.initialConditions.mass;
-                              physics.state.springConstant = parseFloat(springConstantInput.value) || physics.initialConditions.springConstant;
-                          }
-
-                          function init() {
-                              // Mass
-                              // -----------
-
-                              var massInput = document.getElementById("HarmonicOscillator-mass");
-
-                              // Set initial mass value
-                              massInput.value = physics.initialConditions.mass;
-
-                              // User updates mass in simulation
-                              massInput.addEventListener('input', function() {
-                                  updateSimulation(massInput, springConstantInput);
-                              });
-
-                              // Spring constant
-                              // -----------
-
-                              var springConstantInput = document.getElementById("HarmonicOscillator-springConstant");
-
-                              // Set initial spring constant value
-                              springConstantInput.value = physics.initialConditions.springConstant;
-
-                              // User updates spring constant in simulation
-                              springConstantInput.addEventListener('input', function() {
-                                  updateSimulation(massInput, springConstantInput);
-                              });
-                          }
-
-                          return {
-                              init: init
-                          };
-                      })();
-
-                      userInput.init();
-                  })();
-              </script>
-
-              <!-- Harmonic Oscillator Simulator END -->
-
-              <p><br /></p>
-              <br>
-              <br>
-              <br>
-              <label>Lungime</label>
-	<span class='width_90'><input id=lhname type='text' class='easypositive'>
-	</span> <span class='easylengthunits' id='lunit'>lungime</span>
-	</div>
-	<div class='group clearfix'>
-	<label>Acceleratia gravitationala</label>
-	<span class='width_100'><input id=ghname type='text' class='easypositive'>
-	</span> <span class='units' id='gunit'>m/s<sup>2</sup></span>
-	</div>
-	<input type=button value='Calculate' onclick=calculate()><input type=reset value=Reset>
-	<div class='result group clearfix'>
-	<label>Perioda</label><span class='width_100'>
-	<input id=thname type='text' class='easypositive' readonly>
-	</span> <span class='' id='tunit'>s</span>
-	</div>
-	
-
-
-
-
-	<script src="https://www.easycalculation.com/js/jquery.min.js?v0.4"></script>
-	<script src='https://www.easycalculation.com/common.js?v5.9'></script>
-	<script src='https://www.easycalculation.com/js/jquery.sticky.js?v0.1'></script>
-
-
-<script>
-var tresult;
-
-function calculate(){
-var lhname = easyCommonInputCalculation('l','easylength','Lungime');
-var ghname = easyCommonInputCalculation('g','','Acceleratia gravitationala');
-
-lhname = lhname * 0.001;
-tresult = 2*Math.PI*(Math.sqrt(lhname/ghname));
-var thname = easyCommonResultCalculation('t','');
-$('#thname').val(easyRoundOf(thname,4));
-}
-</script>		<script type="text/javascript">
-function alert(val)
-{
-  $("#dynErrDisp").show();
-  $("#dynErrDisp").html(val);
-}
-$(document).ready(function() {
-  closeModal();
-});
-</script>
-</body>
-<br>
-<br>
-<br>
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script type="text/javascript" id="MathJax-script" async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
-</script>
-</head>
-<h3>Math.jax exemplu</h3>
 <body>
-    
-<h2>cand \(a \ne 0\), sunt doua solutii la ecuatia \(ax^2 + bx + c = 0\) si acelea sunt $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$  </h2></body>
+	<h1>Tic Tac Toe</h1>
+	<div id="board">
+		<div class="cell" id="0"></div>
+		<div class="cell" id="1"></div>
+		<div class="cell" id="2"></div>
+		<div class="cell" id="3"></div>
+		<div class="cell" id="4"></div>
+		<div class="cell" id="5"></div>
+		<div class="cell" id="6"></div>
+		<div class="cell" id="7"></div>
+		<div class="cell" id="8"></div>
+	</div>
+	<div class="endgame">
+		<div class="text"></div>
+		<button class="restart-btn" onclick="startGame()">Restart</button>
+	</div>
 
+	<script>
+		var origBoard;
+		const huPlayer = 'O';
+		const aiPlayer = 'X';
+		const winCombos = [
+			[0,1,2],
+			[3,4,5],
+			[6,7,8],
+			[0,3,6],
+			[0,4,8],
+			[1,4,7],
+			[2,5,8],
+			[6,4,2],
+		];
 
-<H3>Cum introducem aceasta functie in pagina</H3>
-<div class="highlight">
-    <pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
-<span>
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://polyfill.io/v3/polyfill.min.js?features=es6&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;MathJax-script&quot;</span> <span class="na">async</span>
-<span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js&quot;</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
-cand \(a \ne 0\), sunt doua solutii la ecuatia \(ax^2 + bx + c = 0\) si acelea sunt
-$$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
-<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
-</pre>
-</div>
+		const cells = document.querySelectorAll('.cell');
+		startGame();
 
-<p>Matematica care este scrisă în format TeX sau LaTeX este indicată folosind delimitatori matematici care înconjoară matematica, spunând MathJax ce parte a paginii dvs. reprezintă matematica și ce este text normal. Există două tipuri de ecuații: cele care apar în cadrul unui paragraf (matematică în linie) și ecuații mai mari care apar separate de restul textului pe rânduri singure (matematică afișată).
-   </p>
-   <p>Delimitatorii matematici impliciti sunt $$...$ $și pentru matematica afișată și pentru matematica în linie. Rețineți în special că $...$delimitatorii în linie nu sunt utilizați implicit.</p>
-   <br>
-  <p> În mod implicit, marcați expresiile matematice scrise în AsciiMath înconjurându-le în apostroafe, adică `...`.</p>
+		function startGame(){
+			document.querySelector(".endgame").style.display = 'none'
+			origBoard = Array.from(Array(9).keys());
+			console.log(origBoard);
+			for (var i = 0; i < cells.length; i++) {
+				cells[i].innerText = '';
+				cells[i].style.removeProperty('background-color');
+				cells[i].addEventListener('click', turnClick, false);
+			}
+		}
 
+		function turnClick(square){
+			if(typeof origBoard[square.target.id] == 'number') {
+				turn(square.target.id, huPlayer)
+				if(!checkTie()) turn(bestSpot(), aiPlayer);
+			}
+		}
 
+		function turn(squareId, player){
+			origBoard[squareId] = player;
+			document.getElementById(squareId).innerText = player;
+			let gameWon = checkWin(origBoard,player);
+if(gameWon) gameOver(gameWon);
+}	function checkWin(board, player){
+		let plays = board.reduce((acc, elem, index) => 
+			(elem === player)?acc.concat(index):acc, []);
+		let gameWon = null;
+		for(let [index, win] of winCombos.entries()){
+			if (win.every(elem => plays.indexOf(elem) > -1)){
+				gameWon = {index: index, player: player};
+				break;
+			}
+		}
+		return gameWon;
+	}
 
+	function declareWinner(who){
+		document.querySelector('.endgame').style.display = "block";
+		document.querySelector('.endgame .text').innerText = who;
+	}
 
+	function gameOver(gameWon){
+		for(let index of winCombos[gameWon.index]){
+			document.getElementById(index).style.backgroundColor = (gameWon.player == huPlayer) ? "blue" : "red";
+		}
+		for (var i = 0; i < cells.length; i++) {
+			cells[i].removeEventListener('click', turnClick, false);
+		}
+		declareWinner(gameWon.player == huPlayer ? 'You win!' : 'You lose!');
+	}
 
+	function emptySquares(){
+		return origBoard.filter(s => typeof s == 'number');
+	}
 
-  <br>
-  <br>
-  <h1>
-    Mai multe exemple
-  </h1>
-  
-  <style>
-    h1 {
-        text-align: center
-    }
+	function bestSpot(){
+		return minimax(origBoard, aiPlayer).index;
+	}
 
-    h2 {
-        font-weight: bold;
-        background-color: #DDDDDD;
-        padding: .2em .5em;
-        margin-top: 1.5em;
-        border-top: 3px solid #666666;
-        border-bottom: 2px solid #999999;
-    }
-</style>
-</head>
+	function checkTie(){
+		if (emptySquares().length == 0) {
+			for (var i = 0; i < cells.length; i++) {
+				cells[i].style.backgroundColor = "green";
+				cells[i].removeEventListener('click', turn, false);
+			}
 
+			declareWinner("Tie Game!")
+			return true;
+		}
+		return false;
+	}
 
+	function minimax(newBoard, player){
+		var availSpots = emptySquares(newBoard);
 
+		if (checkWin(newBoard, player)) {
+			return {score: -10};
+		}
+		else if (checkWin(newBoard, aiPlayer)) {
+			return {score: 10};	
+		}
+		else if(availSpots.length === 0){
+			return {score: 0};
+		}
+		var moves = [];
+		for (var i = 0; i < availSpots.length; i++) {
+			var move = {};
+			move.index = newBoard[availSpots[i]];
+			newBoard[availSpots[i]] = player;
 
-<blockquote>
+			if (player == aiPlayer) {
+				var result = minimax(newBoard, huPlayer);
+				move.score = result.score;
+			}
+			else {
+				var result = minimax(newBoard, aiPlayer);
+				move.score = result.score;
+			}
 
-    <h2>The Lorenz Equations</h2>
+			newBoard[availSpots[i]] = move.index;
 
-    <p>
-        \begin{align} \dot{x} & = \sigma(y-x) \\ \dot{y} & = \rho x - y - xz \\ \dot{z} & = -\beta z + xy \end{align}
-    </p>
+			moves.push(move);
+		}
 
-    <h2>The Cauchy-Schwarz Inequality</h2>
+		var  bestMove;
+		if (player === aiPlayer) {
+			var bestScore = -10000;
+			for (var i = 0; i < moves.length; i++) {
+				if (moves[i].score > bestScore) {
+					bestScore = moves[i].score;
+					bestMove = i;
+				}
+			}
+		}
+		else {
+			var bestScore = 10000;
+			for (var i = 0; i < moves.length; i++) {
+				if (moves[i].score < bestScore) {
+					bestScore = moves[i].score;
+					bestMove = i;
+				}
+			}
+		}
 
-    <p>\[ \left( \sum_{k=1}^n a_k b_k \right)^{\!\!2} \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right) \]
-    </p>
+		return moves[bestMove];
+	}
 
-    <h2>A Cross Product Formula</h2>
-
-    <p>\[ \mathbf{V}_1 \times \mathbf{V}_2 = \begin{vmatrix} \mathbf{i} & \mathbf{j} & \mathbf{k} \\ \frac{\partial X}{\partial u} & \frac{\partial Y}{\partial u} & 0 \\ \frac{\partial X}{\partial v} & \frac{\partial Y}{\partial v} & 0 \\ \end{vmatrix}
-        \]
-    </p>
-
-    <h2>The probability of getting \(k\) heads when flipping \(n\) coins is:</h2>
-
-    <p>\[P(E) = {n \choose k} p^k (1-p)^{ n-k} \]</p>
-
-    <h2>An Identity of Ramanujan</h2>
-
-    <p>\[ \frac{1}{(\sqrt{\phi \sqrt{5}}-\phi) e^{\frac25 \pi}} = 1+\frac{e^{-2\pi}} {1+\frac{e^{-4\pi}} {1+\frac{e^{-6\pi}} {1+\frac{e^{-8\pi}} {1+\ldots} } } } \]
-    </p>
-
-    <h2>A Rogers-Ramanujan Identity</h2>
-
-    <p>\[ 1 + \frac{q^2}{(1-q)}+\frac{q^6}{(1-q)(1-q^2)}+\cdots = \prod_{j=0}^{\infty}\frac{1}{(1-q^{5j+2})(1-q^{5j+3})}, \quad\quad \text{for $|q|
-        1$}. \] </p>
-
-            <h2>Maxwell's Equations</h2>
-
-            <p>
-                \begin{align} \nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t} & = \frac{4\pi}{c}\vec{\mathbf{j}} \\ \nabla \cdot \vec{\mathbf{E}} & = 4 \pi \rho \\ \nabla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial
-                t} & = \vec{\mathbf{0}} \\ \nabla \cdot \vec{\mathbf{B}} & = 0 \end{align}
-            </p>
-
-           
-
-
-</blockquote>
-
+</script>
 </body>
 </html>
